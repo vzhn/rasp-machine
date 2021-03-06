@@ -18,7 +18,7 @@ class ParserTest {
     fun testSto() = testParser("STO -4", listOf(Operation(OperationType.STO, -4)))
 
     @Test
-    fun testBpa() = testParser("BPA 5", listOf(Operation(OperationType.BPA, 5)))
+    fun testBpa() = testParser("BPA 54", listOf(Operation(OperationType.BPA, 54)))
 
     @Test
     fun testRd() = testParser("RD 6", listOf(Operation(OperationType.RD, 6)))
@@ -37,7 +37,7 @@ class ParserTest {
             SUB 3
             STO 4
             BPA 5
-            RD 6
+            RD  60
             PRI 7
             HLT
         """.trimIndent(),
@@ -47,7 +47,7 @@ class ParserTest {
             Operation(OperationType.SUB, 3),
             Operation(OperationType.STO, 4),
             Operation(OperationType.BPA, 5),
-            Operation(OperationType.RD, 6),
+            Operation(OperationType.RD, 60),
             Operation(OperationType.PRI, 7),
             Operation(OperationType.HLT, 0),
         )

@@ -1,9 +1,6 @@
 package me.vzhilin.rasp
 
-class Machine(
-    program: List<Int>,
-    private val input: List<Int>) {
-
+class Machine(program: List<Int>, private val input: List<Int>) {
     private val registers = mutableMapOf<Int, Int>()
     private val output = mutableListOf<Int>()
 
@@ -22,13 +19,13 @@ class Machine(
         val arg = registers[programCounter + 1]!!
 
         when (ins) {
-            /* LOD */ 1 -> accu = arg
-            /* ADD */ 2 -> accu += registers[arg]!!
-            /* SUB */ 3 -> accu -= registers[arg]!!
-            /* STO */ 4 -> registers[arg] = accu
-            /* BPA */ 5 -> if (accu > 0) programCounter = arg
-            /* RD  */ 6 -> registers[arg] = nextInput()
-            /* PRI */ 7 -> output.add(registers[arg]!!)
+            /* LOD */ OperationType.LOD.code -> accu = arg
+            /* ADD */ OperationType.ADD.code -> accu += registers[arg]!!
+            /* SUB */ OperationType.SUB.code -> accu -= registers[arg]!!
+            /* STO */ OperationType.STO.code -> registers[arg] = accu
+            /* BPA */ OperationType.BPA.code -> if (accu > 0) programCounter = arg
+            /* RD  */ OperationType.RD.code -> registers[arg] = nextInput()
+            /* PRI */ OperationType.PRI.code -> output.add(registers[arg]!!)
             /* HLT */ else -> return false
         }
 
