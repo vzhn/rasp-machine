@@ -18,18 +18,18 @@ class Machine(program: List<Int>, private val input: List<Int>) {
         val ins = registers.getOrDefault(programCounter, 0)
         val arg = registers[programCounter + 1]!!
 
-        when (ins) {
-            /* LOD */ OperationType.LOD.code -> accu = arg
-            /* ADD */ OperationType.ADD.code -> accu += registers[arg]!!
-            /* SUB */ OperationType.SUB.code -> accu -= registers[arg]!!
-            /* STO */ OperationType.STO.code -> registers[arg] = accu
-            /* BPA */ OperationType.BPA.code -> if (accu > 0) programCounter = arg
-            /* RD  */ OperationType.RD.code -> registers[arg] = nextInput()
-            /* PRI */ OperationType.PRI.code -> output.add(registers[arg]!!)
-            /* HLT */ else -> return false
+        when (OperationType.of(ins)) {
+            OperationType.LOD-> accu = arg
+            OperationType.ADD -> accu += registers[arg]!!
+            OperationType.SUB -> accu -= registers[arg]!!
+            OperationType.STO -> registers[arg] = accu
+            OperationType.BPA -> if (accu > 0) programCounter = arg
+            OperationType.RD -> registers[arg] = nextInput()
+            OperationType.PRI -> output.add(registers[arg]!!)
+            OperationType.HLT -> return false
         }
 
-        if (ins != 5) {
+        if (ins != OperationType.BPA.code) {
             programCounter += 2
         }
         return true
